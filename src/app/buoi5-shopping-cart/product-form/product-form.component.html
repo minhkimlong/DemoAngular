@@ -1,0 +1,111 @@
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="modalId"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="modelTitleId"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Product</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #formAdd="ngForm" (submit)="handleSubmit(formAdd)">
+          <div class="form-group">
+            <label for="">Name</label>
+            <input
+              required
+              pattern="[A-Za-z ]+"
+              #nameControl="ngModel"
+              type="text"
+              name="name"
+              ngModel
+              class="form-control"
+            />
+            <div
+              *ngIf="
+                nameControl.errors &&
+                (nameControl.touched || nameControl.dirty || formAdd.submitted)
+              "
+            >
+              <p class="alert alert-danger" *ngIf="nameControl.errors.required">
+                Please fill the name.
+              </p>
+              <p class="alert alert-danger" *ngIf="nameControl.errors.pattern">
+                Name must be letters.
+              </p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="">Image</label>
+            <input type="text" name="image" ngModel class="form-control" />
+          </div>
+          <div class="form-group">
+            <label for="">Description </label>
+            <input
+              type="text"
+              name="description"
+              required
+              minlength="60"
+              maxlength="500"
+              #descControl="ngModel"
+              ngModel
+              class="form-control"
+            />
+            <div
+              *ngIf="
+                descControl.errors && (descControl.touched || descControl.dirty)
+              "
+            >
+              <p class="alert alert-danger" *ngIf="descControl.errors.required">
+                Please fill description.
+              </p>
+              <p
+                class="alert alert-danger"
+                *ngIf="descControl.errors.minlength"
+              >
+                Description must be at least 60 characters
+              </p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="">Price</label>
+            <input type="text" name="price" ngModel class="form-control" />
+          </div>
+          <div class="form-group">
+            <label for="">Inventory: </label>
+            <input type="text" name="inventory" ngModel class="form-control" />
+          </div>
+          <div class="form-group">
+            <label for="">Rating: </label>
+            <input type="text" name="rating" ngModel class="form-control" />
+          </div>
+
+          <div class="form-group">
+            <button class="btn btn-success" [disabled]="formAdd.invalid">
+              Submit
+            </button>
+            <button
+              class="btn btn-info"
+              type="button"
+              (click)="handleDemoEdit()"
+            >
+              Demo Edit
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
